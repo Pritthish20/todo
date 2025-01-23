@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FiEdit, FiTrash, FiCheckCircle } from "react-icons/fi";
 import { FaStar, FaRegStar } from "react-icons/fa";
-import UpdateTask from './UpdateTask'
+import UpdateTask from './UpdateTask';
 
 const TaskCard = ({ task }) => {
 
-  const [updateTaskModal,setUpdateTaskModal] =useState(false);
+  const [updateTaskModal, setUpdateTaskModal] = useState(false);
   const { title, description, date, isDone, isImportant } = task;
 
   // Handlers for buttons (dummy for now)
@@ -26,7 +26,7 @@ const TaskCard = ({ task }) => {
   };
 
   return (
-    <div className="bg-white w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-72 p-5 rounded-lg shadow-md flex flex-col space-y-4 border border-gray-200 hover:shadow-lg transition-shadow">
+    <div className="bg-white w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl p-6 rounded-lg shadow-md flex flex-col space-y-4 border border-gray-200 hover:shadow-lg transition-shadow">
       {/* Task Details */}
       <div className="flex-1">
         <h3
@@ -43,7 +43,7 @@ const TaskCard = ({ task }) => {
       {/* Action Buttons */}
       <div className="flex justify-between items-center">
         <button
-          onClick={()=>setUpdateTaskModal(true)}
+          onClick={() => setUpdateTaskModal(true)}
           className="text-blue-600 hover:text-blue-800 transition-colors"
           title="Edit Task"
         >
@@ -73,10 +73,7 @@ const TaskCard = ({ task }) => {
           {isImportant ? <FaStar size={22} /> : <FaRegStar size={22} />}
         </button>
       </div>
-      {updateTaskModal &&
-      <UpdateTask
-      setModal={setUpdateTaskModal}
-      />}
+      {updateTaskModal && <UpdateTask setModal={setUpdateTaskModal} />}
     </div>
   );
 };
