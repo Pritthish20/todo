@@ -21,7 +21,7 @@ const router=createBrowserRouter(
       <Route path='/all-tasks' element={<AllTasks/>}/>
       <Route path='/completed' element={<Completed/>}/>
       <Route path='/important' element={<Important/>}/>
-      <Route path='/to-do' element={<Todo/>}/>
+      <Route path='/' element={<Todo/>}/>
 
 
 

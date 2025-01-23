@@ -50,7 +50,7 @@ const Sidebar = ({ children }) => {
         <nav className="flex-1">
           <ul className="mt-4 space-y-2">
           <li className="flex items-center p-2 hover:bg-gray-700 cursor-pointer">
-              <Link to="/to-do" className="flex items-center w-full text-gray-200">
+              <Link to="/" className="flex items-center w-full text-gray-200">
                 <FaList className="mr-3" />
                 <span className={`${isOpen ? "block" : "hidden"}`}>To-Do</span>
               </Link>
