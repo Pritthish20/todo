@@ -1,5 +1,6 @@
 import React from 'react'
 import TaskCard from "../Components/TaskCard";
+import Weather from "../Components/Weather";
 
 const tasks = [
   {
@@ -63,22 +64,24 @@ const Important = () => {
   const importantTasks = tasks.filter((task) => task.isImportant);
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen">
+    <div className="flex flex-col">
+      <Weather/>
+      <div className="p-8  min-h-auto">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center sm:text-left">
-        Important Tasks
+        All Tasks
       </h2>
       <div
-        className="grid gap-4
+        className="grid gap-5
         grid-cols-1
         sm:grid-cols-2
         md:grid-cols-3
-        lg:grid-cols-4
-        xl:grid-cols-5"
+        lg:grid-cols-4"
       >
         {importantTasks.map((task) => (
           <TaskCard key={task.id} task={task} />
         ))}
       </div>
+    </div>
     </div>
   );
 }
