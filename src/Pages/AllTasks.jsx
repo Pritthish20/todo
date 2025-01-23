@@ -1,5 +1,5 @@
-import React from 'react'
-import TaskCard from '../Components/TaskCard';
+import React from "react";
+import TaskCard from "../Components/TaskCard";
 
 const tasks = [
   {
@@ -60,18 +60,26 @@ const tasks = [
   },
 ];
 
-
 const Alltasks = () => {
   return (
-    <div>
-      {tasks.map((task) => (
-        <TaskCard 
-          key={task.id} 
-          task={task}  
-        />
-      ))}
+    <div className="p-4 bg-gray-100 min-h-screen">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center sm:text-left">
+        All Tasks
+      </h2>
+      <div
+        className="grid gap-4
+        grid-cols-1
+        sm:grid-cols-2
+        md:grid-cols-3
+        lg:grid-cols-4
+        xl:grid-cols-5"
+      >
+        {tasks.map((task) => (
+          <TaskCard key={task.id} task={task} />
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Alltasks
+export default Alltasks;

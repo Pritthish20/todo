@@ -35,7 +35,7 @@ const Sidebar = ({ children }) => {
               isOpen ? "block" : "hidden"
             } transition-all duration-300`}
           >
-            Task Manager
+            Manage Your Tasks
           </h1>
           {isMobile && (
             <button
@@ -49,10 +49,10 @@ const Sidebar = ({ children }) => {
 
         <nav className="flex-1">
           <ul className="mt-4 space-y-2">
-            <li className="flex items-center p-2 hover:bg-gray-700 cursor-pointer">
-              <Link to="/all-tasks" className="flex items-center w-full text-gray-200">
-                <FaTasks className="mr-3" />
-                <span className={`${isOpen ? "block" : "hidden"}`}>All Tasks</span>
+          <li className="flex items-center p-2 hover:bg-gray-700 cursor-pointer">
+              <Link to="/to-do" className="flex items-center w-full text-gray-200">
+                <FaList className="mr-3" />
+                <span className={`${isOpen ? "block" : "hidden"}`}>To-Do</span>
               </Link>
             </li>
             <li className="flex items-center p-2 hover:bg-gray-700 cursor-pointer">
@@ -68,11 +68,12 @@ const Sidebar = ({ children }) => {
               </Link>
             </li>
             <li className="flex items-center p-2 hover:bg-gray-700 cursor-pointer">
-              <Link to="/to-do" className="flex items-center w-full text-gray-200">
-                <FaList className="mr-3" />
-                <span className={`${isOpen ? "block" : "hidden"}`}>To-Do</span>
+              <Link to="/all-tasks" className="flex items-center w-full text-gray-200">
+                <FaTasks className="mr-3" />
+                <span className={`${isOpen ? "block" : "hidden"}`}>All Tasks</span>
               </Link>
             </li>
+            
           </ul>
         </nav>
       </div>

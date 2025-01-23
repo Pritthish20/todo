@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 const AddTask = ({ setModal }) => {
   const [task, setTask] = useState({
@@ -18,19 +18,20 @@ const AddTask = ({ setModal }) => {
   };
 
   const handleSave = () => {
-    setModal(false) // Close the modal
+    console.log("Task saved:", task); // Add task save functionality here
+    setModal(false); // Close the modal
   };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 "
-    >
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96 max-w-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md sm:w-96 md:w-80 lg:w-96">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Add Task</h2>
 
         {/* Title Input */}
         <div className="mb-4">
-          <label htmlFor="title" className="block text-gray-600">Title</label>
+          <label htmlFor="title" className="block text-gray-600">
+            Title
+          </label>
           <input
             type="text"
             id="title"
@@ -44,7 +45,9 @@ const AddTask = ({ setModal }) => {
 
         {/* Description Input */}
         <div className="mb-4">
-          <label htmlFor="description" className="block text-gray-600">Description</label>
+          <label htmlFor="description" className="block text-gray-600">
+            Description
+          </label>
           <textarea
             id="description"
             name="description"
@@ -58,7 +61,9 @@ const AddTask = ({ setModal }) => {
 
         {/* Date Picker */}
         <div className="mb-4">
-          <label htmlFor="date" className="block text-gray-600">Date</label>
+          <label htmlFor="date" className="block text-gray-600">
+            Date
+          </label>
           <input
             type="date"
             id="date"
@@ -73,24 +78,26 @@ const AddTask = ({ setModal }) => {
         <div className="mb-4 flex items-center">
           <button
             onClick={() => setTask({ ...task, isImportant: !task.isImportant })}
-            className={`p-2 rounded-full ${task.isImportant ? "bg-teal-500" : "bg-gray-300"} hover:bg-teal-600 transition-colors`}
+            className="p-2 rounded-full transition-colors text-yellow-500 hover:text-yellow-600"
           >
-            <FaStar className="text-white" size={20} />
+            {task.isImportant ? <FaStar size={28} /> : <FaRegStar size={28} />}
           </button>
-          <span className="ml-2 text-gray-600">{task.isImportant ? "Important" : "Mark as Important"}</span>
+          <span className="ml-2 text-gray-600">
+            {task.isImportant ? "Important" : "Mark as Important"}
+          </span>
         </div>
 
         {/* Modal Buttons */}
         <div className="flex justify-between mt-4">
           <button
-            onClick={()=>setModal(false)}
-            className="bg-gray-400 text-white p-2 rounded-md hover:bg-gray-500 transition"
+            onClick={() => setModal(false)}
+            className="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500 transition"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="bg-teal-500 text-white p-2 rounded-md hover:bg-teal-600 transition"
+            className="bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition"
           >
             Add Task
           </button>
@@ -99,7 +106,5 @@ const AddTask = ({ setModal }) => {
     </div>
   );
 };
-
-
 
 export default AddTask;

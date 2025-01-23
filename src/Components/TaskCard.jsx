@@ -1,7 +1,11 @@
-import React from "react";
-import { FaEdit, FaTrash, FaCheck, FaStar } from "react-icons/fa";
+import React, { useState } from "react";
+import { FiEdit, FiTrash, FiCheckCircle } from "react-icons/fi";
+import { FaStar, FaRegStar } from "react-icons/fa";
+import UpdateTask from './UpdateTask'
 
 const TaskCard = ({ task }) => {
+
+  const [updateTaskModal,setUpdateTaskModal] =useState(false);
   const { title, description, date, isDone, isImportant } = task;
 
   // Handlers for buttons (dummy for now)
@@ -10,7 +14,7 @@ const TaskCard = ({ task }) => {
   };
 
   const handleImportant = () => {
-    console.log(`Mark task "${title}" as important`);
+    console.log(`Toggle importance of task "${title}"`);
   };
 
   const handleDelete = () => {
@@ -22,57 +26,57 @@ const TaskCard = ({ task }) => {
   };
 
   return (
-    <div className="bg-white p-3 rounded-md shadow-md flex flex-col space-y-2 border border-gray-200 sm:flex-row sm:items-center sm:justify-between">
-      {/* Left Section */}
+    <div className="bg-white w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-72 p-5 rounded-lg shadow-md flex flex-col space-y-4 border border-gray-200 hover:shadow-lg transition-shadow">
+      {/* Task Details */}
       <div className="flex-1">
         <h3
-          className={`text-md font-semibold truncate ${
-            isDone ? "line-through text-gray-500" : "text-gray-800"
+          className={`text-lg font-semibold ${
+            isDone ? "line-through text-gray-400" : "text-gray-800"
           }`}
         >
           {title}
         </h3>
-        <p className="text-sm text-gray-600 truncate">{description}</p>
+        <p className="text-sm text-gray-600">{description}</p>
         <p className="text-xs text-gray-400">{date}</p>
       </div>
 
-      {/* Button Section */}
-      <div className="flex items-center space-x-2 mt-2 sm:mt-0">
+      {/* Action Buttons */}
+      <div className="flex justify-between items-center">
         <button
-          onClick={handleUpdate}
-          className="text-blue-500 hover:text-blue-700 transition-colors"
+          onClick={()=>setUpdateTaskModal(true)}
+          className="text-blue-600 hover:text-blue-800 transition-colors"
           title="Edit Task"
         >
-          <FaEdit size={16} />
+          <FiEdit size={22} />
         </button>
         <button
           onClick={handleDelete}
-          className="text-red-500 hover:text-red-700 transition-colors"
+          className="text-red-600 hover:text-red-800 transition-colors"
           title="Delete Task"
         >
-          <FaTrash size={16} />
+          <FiTrash size={22} />
         </button>
         <button
           onClick={handleDone}
           className={`${
-            isDone ? "text-gray-400" : "text-green-500 hover:text-green-700"
+            isDone ? "text-gray-400" : "text-green-600 hover:text-green-800"
           } transition-colors`}
           title={isDone ? "Task Done" : "Mark as Done"}
         >
-          <FaCheck size={16} />
+          <FiCheckCircle size={22} />
         </button>
         <button
           onClick={handleImportant}
-          className={`${
-            isImportant
-              ? "text-yellow-400"
-              : "text-yellow-500 hover:text-yellow-700"
-          } transition-colors`}
+          className="text-yellow-500 hover:text-yellow-600 transition-colors"
           title={isImportant ? "Important Task" : "Mark as Important"}
         >
-          <FaStar size={16} />
+          {isImportant ? <FaStar size={22} /> : <FaRegStar size={22} />}
         </button>
       </div>
+      {updateTaskModal &&
+      <UpdateTask
+      setModal={setUpdateTaskModal}
+      />}
     </div>
   );
 };
