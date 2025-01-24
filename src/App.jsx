@@ -10,12 +10,12 @@ import Weather from './Components/Weather';
 
 const App = () => {
   const location=useLocation();
-  // const noSRoutes=["/login", "/signup"]
+  const noSidebarRoutes=["/login"]
   return (
     <>
   <ToastContainer />
-  <div className="flex bg-gray-100">
-    <Sidebar />
+  <div className={`${!noSidebarRoutes.includes(location.pathname) ? "flex":""} bg-gray-100`}>
+  {!noSidebarRoutes.includes(location.pathname) && <Sidebar/>}
     {/* Main Content */}
     <main className="">
         <Outlet />

@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { addTask } from "../Redux/Slice/task";
+import { v4 as uuidv4 } from "uuid";
 
 const AddTask = ({ setModal }) => {
+  const dispatch = useDispatch();
+
   const [task, setTask] = useState({
+    id: uuidv4(),
     title: "",
     description: "",
     date: new Date().toISOString().split("T")[0], // Default to today's date
     isImportant: false,
+    isDone: false,
   });
 
   const handleChange = (e) => {
@@ -18,8 +25,16 @@ const AddTask = ({ setModal }) => {
   };
 
   const handleSave = () => {
-    console.log("Task saved:", task); // Add task save functionality here
-    setModal(false); // Close the modal
+    if (!task.title.trim() || !task.description.trim()) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    // Dispatch the addTask action with task details
+    dispatch(addTask(task));
+
+    // Close the modal
+    setModal(false);
   };
 
   return (

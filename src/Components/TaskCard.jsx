@@ -2,27 +2,26 @@ import React, { useState } from "react";
 import { FiEdit, FiTrash, FiCheckCircle } from "react-icons/fi";
 import { FaStar, FaRegStar } from "react-icons/fa";
 import UpdateTask from './UpdateTask';
+import { useDispatch } from "react-redux";
+import { deleteTask, toggleTaskDone, toggleTaskImportant } from "../Redux/Slice/task";
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, }) => {
+  const dispatch =useDispatch();
 
   const [updateTaskModal, setUpdateTaskModal] = useState(false);
-  const { title, description, date, isDone, isImportant } = task;
+  const { id,title, description, date, isDone, isImportant } = task;
 
   // Handlers for buttons (dummy for now)
   const handleDone = () => {
-    console.log(`Mark task "${title}" as done`);
+    dispatch(toggleTaskDone(id))
   };
 
   const handleImportant = () => {
-    console.log(`Toggle importance of task "${title}"`);
+    dispatch(toggleTaskImportant(id));
   };
 
   const handleDelete = () => {
-    console.log(`Delete task "${title}"`);
-  };
-
-  const handleUpdate = () => {
-    console.log(`Update task "${title}"`);
+    dispatch(deleteTask(id));
   };
 
   return (
@@ -30,7 +29,7 @@ const TaskCard = ({ task }) => {
       {/* Task Details */}
       <div className="flex-1">
         <h3
-          className={`text-lg font-semibold ${
+          className={`text-lg font-semibold text-wrap ${
             isDone ? "line-through text-gray-400" : "text-gray-800"
           }`}
         >
@@ -73,7 +72,7 @@ const TaskCard = ({ task }) => {
           {isImportant ? <FaStar size={22} /> : <FaRegStar size={22} />}
         </button>
       </div>
-      {updateTaskModal && <UpdateTask setModal={setUpdateTaskModal} />}
+      {updateTaskModal && <UpdateTask setModal={setUpdateTaskModal} oldTask={task}/>}
     </div>
   );
 };

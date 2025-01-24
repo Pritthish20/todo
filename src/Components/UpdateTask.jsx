@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { updateTask } from "../Redux/Slice/task";
 
-const UpdateTask = ({ setModal }) => {
+const UpdateTask = ({ setModal,oldTask }) => {
+  const dispatch =useDispatch();
+
   const [task, setTask] = useState({
-    title: "",
-    description: "",
-    date: new Date().toISOString().split("T")[0], // Default to today's date
-    isImportant: false,
+    id:oldTask.id,
+    title:oldTask.title,
+    description: oldTask.description,
+    date: oldTask.date, // Default to today's date
+    isImportant: oldTask.isImportant, 
+    isDone: oldTask.isDone,
   });
 
   const handleChange = (e) => {
@@ -19,8 +25,17 @@ const UpdateTask = ({ setModal }) => {
 
   const handleSave = () => {
     // Add save functionality here
-    console.log("Task saved:", task);
-    setModal(false); // Close the modal
+     // Close the modal
+     dispatch(updateTask({
+      id: task.id, 
+      updatedTask: {
+        title: task.title, // Updated fields
+        description: task.description,
+        isImportant: task.isImportant,
+        isDone: task.isDone
+      }
+    }));
+     setModal(false);
   };
 
   return (

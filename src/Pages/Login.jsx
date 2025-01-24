@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../Redux/Slice/auth"; // Replace with the correct path to your auth slice
 
 const Login = () => {
-
-   const [formDetails, setFormDetails] = useState({
+  const [formDetails, setFormDetails] = useState({
     name: "",
     email: "",
     password: "",
   });
- 
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -30,18 +34,18 @@ const Login = () => {
       return;
     }
 
-    // Add your authentication logic here (API call, etc.)
-    console.log("Form Details:", formDetails);
+    // Dispatch the login action with user details
+    dispatch(login({ name, email }));
 
-    // Example: Simulate successful login
-    alert(`Welcome, ${name}`);
+    // Example: Simulate successful login and navigate to the home page
+    navigate("/");
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Login 
+          Login
         </h2>
         <form onSubmit={handleSubmit}>
           {/* Name Field */}
@@ -103,7 +107,6 @@ const Login = () => {
               required
             />
           </div>
-         
 
           {/* Login Button */}
           <button
@@ -113,10 +116,9 @@ const Login = () => {
             Login
           </button>
         </form>
-        
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

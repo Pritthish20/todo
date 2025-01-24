@@ -5,6 +5,9 @@ import App from './App.jsx'
 import {Route,RouterProvider,createRoutesFromElements } from 'react-router'
 import {createBrowserRouter} from 'react-router-dom'
 
+import { store } from './Redux/store.js'
+import { Provider } from 'react-redux'
+
 
 import Login from './Pages/Login.jsx'
 import AllTasks from './Pages/AllTasks.jsx'
@@ -31,7 +34,8 @@ const router=createBrowserRouter(
 )
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <Provider store={store}>
     <RouterProvider router={router}/>
-  </StrictMode>,
+  </Provider>
+    
 )
