@@ -11,7 +11,7 @@ const Todo = () => {
   const sortedToDoTasks = toDoTasks.sort((a, b) => b.isImportant - a.isImportant);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col lg:w-[86vw] sm:w-auto">
       <Weather/>
       <div className="px-8 py-2  min-h-auto">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center sm:text-left">

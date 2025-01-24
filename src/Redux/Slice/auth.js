@@ -19,6 +19,7 @@ export const authSlice = createSlice({
 
     logout:(state)=>{
         state.userInfo = null;
+        state.task=[];
         localStorage.clear();
     }
 

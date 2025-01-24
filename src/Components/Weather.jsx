@@ -104,8 +104,8 @@ const Weather = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100">
-      <div className="bg-gray-200 rounded-2xl max-w-screen px-2 py-2 flex flex-wrap m-2 items-center justify-center">
+    <div className="bg-gray-100 w ">
+      <div className="bg-gray-200  rounded-2xl max-w-screen px-2 py-2 flex flex-wrap m-2 items-center justify-center">
         {/* Text on the same row */}
         <div className="mb-2">
           <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-700 text-wrap">

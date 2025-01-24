@@ -98,7 +98,7 @@ const Sidebar = () => {
       {/* Sidebar */}
       <div
         className={`${
-          isOpen ? "w-64" : "w-16"
+          isOpen ? (isMobile ? "w-54" : "w-64")  : "w-16"
         } bg-gray-800 text-gray-200 flex flex-col min-h-screen h-auto transition-all duration-300`}
       >
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
@@ -124,10 +124,10 @@ const Sidebar = () => {
           <div className="flex flex-col items-center mt-4">
            <div
             className={`${
-              isOpen ? "w-44 h-44" : "w-7 h-7"
+              isOpen ? (isMobile ? "w-22 h-22" : "w-44 h-44") : "w-7 h-7"
             } ${userInfo ?"bg-teal-500 ":" bg-gray-500"} rounded-full flex items-center justify-center text-white transition-all duration-300`}
           >
-            <FaUser size={isOpen ? 96 : 16} />
+            <FaUser size={isOpen ? (isMobile ? 44 : 96) : 16} />
           </div>
             {isOpen && (
               <p className="mt-2 text-gray-200 text-md font-semibold">
