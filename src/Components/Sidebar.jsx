@@ -3,7 +3,7 @@ import Chart from "chart.js/auto";
 import { FaBars, FaTasks, FaStar, FaCheck, FaList, FaPlus, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import AddTask from "./Addtask";
+import AddTask from "./AddTask";
 import { logout } from "../Redux/Slice/auth"; // Replace with your actual authSlice logout action
 import { selectDoneTasks } from "../Redux/Slice/task";
 
