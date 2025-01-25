@@ -4,8 +4,9 @@ import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
 import authReducer from './Slice/auth'
 import taskReducer from './Slice/task'
+import cacheReducer from './Slice/cache'
 
-const rootReducer = combineReducers({ auth: authReducer,tasks:taskReducer });
+const rootReducer = combineReducers({ auth: authReducer,tasks:taskReducer , cache:cacheReducer });
 
 const persistConfig = {
   key: "root",

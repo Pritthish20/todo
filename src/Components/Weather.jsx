@@ -1,95 +1,101 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWeatherData } from "../Redux/Slice/cache";
 
 const Weather = () => {
-  const [currentWeather, setCurrentWeather] = useState(null);
-  const [forecast, setForecast] = useState([]);
-  const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
+  // const [currentWeather, setCurrentWeather] = useState(null);
+  // const [forecast, setForecast] = useState([]);
+  // const [location, setLocation] = useState(null);
+  // const [error, setError] = useState(null);
 
-  const weatherApiKey = "e18f6b68c008cac4c02e74954d6a27e7"; // Replace with your OpenWeatherMap API key
-  const cachedData = useRef(null); // To cache the API data
+  // const weatherApiKey = "e18f6b68c008cac4c02e74954d6a27e7"; // Replace with your OpenWeatherMap API key
+  // const cachedData = useRef(null); // To cache the API data
 
+  const dispatch = useDispatch();
+  const { currentWeather, forecast, location, status, error } = useSelector(
+    (state) => state.cache
+  );
   useEffect(() => {
-    const fetchWeather = (lat, lon) => {
-      // Check if data is already cached
-      if (cachedData.current) {
-        const { current, nextDays, location } = cachedData.current;
-        setCurrentWeather(current);
-        setForecast(nextDays);
-        setLocation(location);
-        return; // Skip fetching since we already have cached data
-      }
+    // const fetchWeather = (lat, lon) => {
+    //   // Check if data is already cached
+    //   if (cachedData.current) {
+    //     const { current, nextDays, location } = cachedData.current;
+    //     setCurrentWeather(current);
+    //     setForecast(nextDays);
+    //     setLocation(location);
+    //     return; // Skip fetching since we already have cached data
+    //   }
 
-      const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${weatherApiKey}`;
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          const current = data.list[0];
+    //   const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${weatherApiKey}`;
+    //   fetch(url)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       const current = data.list[0];
 
-          // Extract unique days from the forecast data
-          const nextDays = [];
-          const uniqueDates = new Set();
-          for (const forecast of data.list) {
-            const forecastDate = new Date(forecast.dt * 1000).toLocaleDateString("en-US", {
-              weekday: "long",
-              day: "numeric",
-              month: "short",
-            });
-            if (!uniqueDates.has(forecastDate)) {
-              uniqueDates.add(forecastDate);
-              nextDays.push({
-                day: forecastDate,
-                description: forecast.weather[0].description,
-                temperature: Math.round(forecast.main.temp),
-                icon: `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`,
-              });
-            }
-            if (nextDays.length === 4) break; // Limit to 3 unique days
-          }
+    //       // Extract unique days from the forecast data
+    //       const nextDays = [];
+    //       const uniqueDates = new Set();
+    //       for (const forecast of data.list) {
+    //         const forecastDate = new Date(forecast.dt * 1000).toLocaleDateString("en-US", {
+    //           weekday: "long",
+    //           day: "numeric",
+    //           month: "short",
+    //         });
+    //         if (!uniqueDates.has(forecastDate)) {
+    //           uniqueDates.add(forecastDate);
+    //           nextDays.push({
+    //             day: forecastDate,
+    //             description: forecast.weather[0].description,
+    //             temperature: Math.round(forecast.main.temp),
+    //             icon: `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`,
+    //           });
+    //         }
+    //         if (nextDays.length === 4) break; // Limit to 3 unique days
+    //       }
 
-          const locationData = {
-            city: data.city.name,
-            country: data.city.country,
-          };
+    //       const locationData = {
+    //         city: data.city.name,
+    //         country: data.city.country,
+    //       };
 
-          const currentData = {
-            description: current.weather[0].description,
-            temperature: Math.round(current.main.temp),
-            icon: `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`,
-            windSpeed: current.wind.speed,
-            humidity: current.main.humidity,
-            rain: current.rain ? current.rain["3h"] : 0,
-            date: new Date(current.dt * 1000).toLocaleDateString("en-US", {
-              weekday: "long",
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-            }),
-          };
+    //       const currentData = {
+    //         description: current.weather[0].description,
+    //         temperature: Math.round(current.main.temp),
+    //         icon: `https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`,
+    //         windSpeed: current.wind.speed,
+    //         humidity: current.main.humidity,
+    //         rain: current.rain ? current.rain["3h"] : 0,
+    //         date: new Date(current.dt * 1000).toLocaleDateString("en-US", {
+    //           weekday: "long",
+    //           day: "numeric",
+    //           month: "short",
+    //           year: "numeric",
+    //         }),
+    //       };
 
-          // Cache the data
-          cachedData.current = {
-            current: currentData,
-            nextDays,
-            location: locationData,
-          };
+    //       // Cache the data
+    //       cachedData.current = {
+    //         current: currentData,
+    //         nextDays,
+    //         location: locationData,
+    //       };
 
-          // Update state
-          setCurrentWeather(currentData);
-          setForecast(nextDays);
-          setLocation(locationData);
-        })
-        .catch(() => {
-          setError("Failed to fetch weather data.");
-        });
-    };
+    //       // Update state
+    //       setCurrentWeather(currentData);
+    //       setForecast(nextDays);
+    //       setLocation(locationData);
+    //     })
+    //     .catch(() => {
+    //       setError("Failed to fetch weather data.");
+    //     });
+    // };
 
     const getUserLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            fetchWeather(latitude, longitude);
+            dispatch(fetchWeatherData({ lat: latitude, lon: longitude }));
           },
           () => {
             setError("Unable to fetch location.");
@@ -101,7 +107,7 @@ const Weather = () => {
     };
 
     getUserLocation();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="bg-gray-100 w ">
@@ -119,39 +125,40 @@ const Weather = () => {
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center justify-center">
           {/* Current Weather Card */}
           <div className="col-span-1 sm:col-span-12 lg:col-span-8 bg-blue-500 text-white shadow-md rounded-md p-1 flex items-center justify-evenly text-center h-full">
-            {error ? (
+            {status==='failed' ? (
               <p className="text-center text-red-200">{error}</p>
-            ) : currentWeather && location ? (
+            ) : status==="loading" ? (
+              <p className="text-center">Loading...</p>
+              
+            ) : (
               <>
                 <div>
                   <h2 className="text-lg sm:text-xl md:text-2xl font-semibold">
-                    {location.city}, {location.country}
+                    {location?.city}, {location?.country}
                   </h2>
                   <p className="text-xs sm:text-sm md:text-base text-gray-200">
-                    {currentWeather.date}
+                    {currentWeather?.date}
                   </p>
                   <p className="text-xs sm:text-sm md:text-base capitalize text-gray-200">
-                    {currentWeather.description}
+                    {currentWeather?.description}
                   </p>
                 </div>
                 <div className="flex justify-evenly gap-4 items-center">
                   <p className="text-3xl sm:text-4xl md:text-5xl font-bold">
-                    {currentWeather.temperature}°C
+                    {currentWeather?.temperature}°C
                   </p>
                   <div className="text-xs sm:text-sm md:text-base">
-                    <p>Wind: {currentWeather.windSpeed} m/s</p>
-                    <p>Humidity: {currentWeather.humidity}%</p>
-                    <p>Rain: {currentWeather.rain} mm</p>
+                    <p>Wind: {currentWeather?.windSpeed} m/s</p>
+                    <p>Humidity: {currentWeather?.humidity}%</p>
+                    <p>Rain: {currentWeather?.rain} mm</p>
                   </div>
                 </div>
                 <img
-                  src={currentWeather.icon}
-                  alt={currentWeather.description}
+                  src={currentWeather?.icon}
+                  alt={currentWeather?.description}
                   className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24"
                 />
               </>
-            ) : (
-              <p className="text-center">Loading...</p>
             )}
           </div>
 
