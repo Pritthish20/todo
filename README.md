@@ -63,7 +63,7 @@ The application is live and can be accessed here:
 
 2. Navigate to the project directory::
    ```bash
-   cd todd
+   cd todo
 
 
 3. Install dependencies:
