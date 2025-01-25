@@ -27,6 +27,13 @@ A modern and responsive Todo web application built using **React** and **Redux**
 
 ---
 
+## 🚀 Deploy Link
+
+The application is live and can be accessed here:  
+[**Click here to visit the deployed app**](https://todo-rust-nu.vercel.app/)
+
+---
+
 ## Screenshots 📸
 
 ### Desktop View
